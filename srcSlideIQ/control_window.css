@@ -1,0 +1,86 @@
+#logo {
+    display: flex;
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    color: #007bff;
+    font-size: 18px;
+    font-weight: bolder;
+    font-family: "ETML L";
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    /* Ajout d'un fond légèrement gris */
+}
+
+.grid-container {
+    margin-top: 17px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: 91vh;
+    gap: 15px;
+    padding: 10px;
+}
+
+.grid-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    /* Arrondis aux coins */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Effet d'ombre */
+    background-color: #fff;
+    /* Fond blanc pour contraster avec le fond du body */
+}
+.remarks{
+    height: 160px;
+}
+#remarksNow, #remarksNext 
+{ 
+    position: fixed;
+    font-size: 13px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+iframe {
+    width: 100%;
+    height: 360px;
+    border: none;
+    border-radius: 8px;
+    /* Arrondis aux coins */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Effet d'ombre */
+}
+
+.control-panel {
+    display: flex;
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.control-button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border-radius: 4px;
+    /* Arrondis aux coins */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Effet d'ombre */
+}
+
+.control-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    /* Petit effet de zoom au survol */
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Fenêtre de Contrôle</title>
+    <meta charset="UTF-8">
+    <!-- Ressources externes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Ressources locales -->
+    <link rel="stylesheet" href="./control_window.css">
+    <script src="control_window.js"></script>
+</head>
+
+<body>
+    <div id="logo">ETML  <span style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">/ CFPV </span> </div>
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <p> <strong>Slide à Venir</strong> </p>
+            <iframe id="nextView" loading="lazy"></iframe>
+        </div>
+        <div class="grid-item">
+            <p> <strong> Slide Actuel</strong></p>
+            <iframe id="currentView" loading="lazy"></iframe>
+        </div>
+        <div class="grid-item remarks">
+            <h3>Remarques du Slide Actuel</h3>
+            <div id="remarksNow"></div>
+        </div>
+        <div class="grid-item remarks">
+            <h3>Remarques du Slide à Venir</h3>
+            <div id="remarksNext"></div>
+        </div>
+        <div id="Control" class="control-panel">
+            <button id="prevButton" class="control-button" title="Précédent"><i class="fas fa-arrow-left"></i></button>
+            <button id="nextButton" class="control-button" title="Suivant"><i class="fas fa-arrow-right"></i></button>
+            <input type="text" name="inputMsg" id="inputMsg">
+            <button id="SendHTMLButton" class="control-button" title="Envoyer un message à Slide"><i
+                    class="fas fa-paper-plane"></i></button>
+            <input type="number" id="slideNumberInput" placeholder="Numéro de slide" min="1" class="control-input">
+            <button id="goToSlideButton" class="control-button" title="Aller à la slide"><i
+                    class="fas fa-play-circle"></i></button>
+        </div>
+    </div>
+</body>
+
+</html
