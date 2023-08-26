@@ -2,11 +2,11 @@
 
 ## 📝 Description
 
-**SlideIQ** est un outil innovant qui modernise la façon dont vous gérez vos présentations HTML. Construit avec Python et la puissante bibliothèque `webview`, il offre deux interfaces distinctes : une pour la présentation et l'autre pour son contrôle. Imaginez ça comme votre PowerPoint du 21e siècle, mais en mieux.
+Bienvenue dans l'univers de **SlideIQ**, un outil révolutionnaire qui donne une nouvelle dimension à la gestion de vos présentations HTML. Développé avec passion en Python, en utilisant la bibliothèque puissante `webview`, SlideIQ propose deux interfaces distinctes : une dédiée à la présentation et l'autre à son contrôle. Imaginez-le comme votre complice du 21e siècle pour des présentations mémorables et engageantes.
 
 ## 🛠 Installation
 
-1. **Python 3.x** : Assurez-vous d'avoir une version de Python 3.x installée sur votre système.
+1. **Python 3.x** : Assurez-vous d'avoir Python 3.x installé sur votre système.
    ```
    python --version
    ```
@@ -17,16 +17,45 @@
 
 ## 🚀 Utilisation
 
-1. **Fichiers de Présentation** : Placez votre fichier HTML de présentation dans le répertoire `Slides`.
-   
-2. **Démarrage** : Double-cliquez sur `StartSlideIQ.bat` ou exécutez le script Python dans votre terminal :
+1. **Fichiers de Présentation** : Placez vos fichiers HTML de présentation dans le dossier `Slides`.
+
+2. **Démarrage** : Lancez SlideIQ en double-cliquant sur `StartSlideIQ.bat` ou en exécutant le script Python dans votre terminal :
    ```
    python SlideIQ.py
    ```
 
-3. **Interface Utilisateur** : Deux fenêtres s'ouvriront — une pour les diapositives et une autre pour leur contrôle.
+3. **Interface Utilisateur** : Ouvrez deux fenêtres — une pour afficher les diapositives et l'autre pour les contrôler.
 
-📂 **Arborescence du Projet** :
+4. **Fonctions JavaScript cruciales** :
+Voici les fonctions JavaScript que vous devez absolument intégrer dans le fichier JS de vos diapositives HTML. Elles sont essentielles pour permettre l'interaction fluide entre la fenêtre de contrôle et la fenêtre des diapositives. En leur absence, le fonctionnement sera compromis.
+
+```javascript
+//#region : Connexion avec Python
+function simulerAppuiTouche(codeTouche) {
+  var event = new KeyboardEvent('keydown', { 'keyCode': codeTouche, 'which': codeTouche });
+  document.dispatchEvent(event);
+}
+
+function obtenirContenuDiapositiveActuelle() {
+  var diapositiveActuelle = slideShow.slides[slideShow.currentSlide];
+  return diapositiveActuelle.innerHTML;
+}
+
+function obtenirContenuDiapositiveSuivante() {
+  if (slideShow.currentSlide + 1 < slideShow.slides.length) {
+    var diapositiveSuivante = slideShow.slides[slideShow.currentSlide + 1];
+    return diapositiveSuivante.innerHTML;
+  }
+  return "";
+}
+
+function messageRecu(message) {
+  alert("Message reçu : " + message);
+}
+//#endregion
+```
+
+📂 **Structure du Projet** :
 
 ```plaintext
 StartSlideIQ.bat
@@ -45,29 +74,29 @@ StartSlideIQ.bat
     ├── remarks.md
     └── SlideIQ.py
 ```
+
 ## 🌟 Fonctionnalités
-Navigation Entre Diapositives : Les boutons de l'interface de contrôle permettent une navigation fluide entre les diapositives.
+Navigation Simplifiée : Les boutons de contrôle facilitent la navigation entre les diapositives.
 
-Communication Intuitive : Envoyez des messages ou des commandes à la fenêtre de diapositives directement depuis l'interface de contrôle.
+Communication Intuitive : Envoyez des messages ou des commandes à la fenêtre des diapositives directement depuis l'interface de contrôle.
 
-## 🛠 Développements Futurs
--🔄 **Chargement Dynamique** : Ajout d'une fonctionnalité pour charger différentes présentations sans avoir à redémarrer l'application.
+## 🛠 Perspectives d'Évolution
+-🔄 **Chargement Dynamique** : Ajout d'une fonctionnalité pour basculer entre différentes présentations sans redémarrer l'application.
 
--🎙 **Reconnaissance Vocale** : Intégration d'un contrôle vocal pour une expérience utilisateur encore plus immersive.
+-🎙 **Reconnaissance Vocale** : Intégration d'une commande vocale pour une immersion totale.
 
--💬 **Messages Intégrés** : La prochaine mise à jour prévoit la possibilité d'envoyer des messages de la fenêtre de contrôle à la fenêtre de diapositives.
+-💬 **Messages Intégrés** : Prochaine mise à jour : possibilité d'envoyer des messages de contrôle aux diapositives.
 
--🔦 **Laser Virtuel** : Intégration d'une fonctionnalité de pointeur laser pour mieux orienter l'audience.
+-🔦 **Pointeur Laser Virtuel** : Un pointeur laser virtuel pour guider l'attention.
 
-- 🖊 **Interaction au Stylet** : Possibilité d'annoter les diapositives directement via un stylet.
+-🖊 **Interaction au Stylet** : Annotation directe des diapositives avec un stylet.
 
-- 📝 **Commentaires selon les Slides** : Vous pouvez ajouter des commentaires spécifiques à chaque slide dans un fichier Markdown.
-  Ceux-ci seront affichés dans la fenêtre de contrôle pour faciliter la présentation.
+-📝 **Commentaires par Diapositive** : Ajout de commentaires spécifiques à chaque diapositive via un fichier Markdown. Visibles dans la fenêtre de contrôle pour une présentation fluide.
 
-## 📜 Auteurs
+## 📜 Auteur
 
 - **Helder Costa Lopes**
 
 ## 📚 Licence
 
-Ce projet est sous licence MIT. Pour plus d'informations, consultez le fichier [LICENSE.md](LICENSE.md).
+Ce projet est distribué sous licence MIT. Pour plus de détails, consultez le fichier [LICENSE.md](LICENSE.md).
