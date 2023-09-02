@@ -1,4 +1,5 @@
 import webview
+from screeninfo import get_monitors
 import os
 
 # Obtenir le répertoire courant
@@ -53,24 +54,39 @@ def read_remarks_for_slide(file_path):
 
     return remarks_dict
     
-
 def create_windows(path_presentation, path_control):
+    try:
+        from screeninfo import get_monitors
+        monitors = get_monitors()
+        number_of_monitors = len(monitors)
+
+        if number_of_monitors > 1:
+            # Si plus d'un écran est détecté
+            window_1 = webview.create_window('Slides', url=path_presentation, fullscreen=True)
+            window_2 = webview.create_window('Master', url=path_control, x=monitors[0].width, y=0, fullscreen=True)
+            return window_1, window_2
+
+    except ImportError:
+        print("La bibliothèque screeninfo n'est pas installée. Utilisation du mode à un seul écran.")
+
+    # Si un seul écran est détecté ou si screeninfo n'est pas installé
+    window_1 = webview.create_window('Slides', url=path_presentation, width=800, height=600)
     window_2 = webview.create_window('Master', url=path_control, width=800, height=600)
-    window_1 = webview.create_window('Slide', url=path_presentation, width=800, height=600)
 
     return window_1, window_2
 
+
 def expose_functions(window_1, window_2):
     def send_to_goToSlide_window(slide):
-        window_1.evaluate_js(f"goToSlide({slide});")
+       return window_1.evaluate_js(f"goToSlide({slide});")
     window_2.expose(send_to_goToSlide_window)
 
     def send_to_slide_window(message):
-        window_1.evaluate_js(f"messageReceived('{message}')")
+       return window_1.evaluate_js(f"messageReceived('{message}')")
     window_2.expose(send_to_slide_window)
 
     def send_to_master_window(message):
-        window_2.evaluate_js(f"messageReceived('{message}')")
+       return window_2.evaluate_js(f"messageReceived('{message}')")
     window_1.expose(send_to_master_window)
 
     def currentSlide():
@@ -82,16 +98,17 @@ def expose_functions(window_1, window_2):
     window_2.expose(nextSlide)
 
     def simulateKeyPress(key: str):
-        window_1.evaluate_js(f"simulateKeyPress({key});")
+        return window_1.evaluate_js(f"simulateKeyPress({key});")
     window_2.expose(simulateKeyPress)
 
     def getCurrentIndex():
-        window_1.evaluate_js("getCurrentIndex();")
+       return window_1.evaluate_js("getCurrentIndex();")
     window_2.expose(getCurrentIndex)
     
     def get_remarks():
-        remarks_dict = read_remarks_for_slide(path_remarks)  # Obtiens le dictionnaire de remarques
-        return remarks_dict
+         # Obtiens le dictionnaire de remarques
+        remarks_dict = read_remarks_for_slide(path_remarks) 
+        return remarks_dict    
     window_2.expose(get_remarks)
 
 def open_windows():
