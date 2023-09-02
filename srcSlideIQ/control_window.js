@@ -13,15 +13,17 @@ window.addEventListener('DOMContentLoaded', async () => {
     // permet d'accèder directement à la slide souhaitée 
     const goToSlideButton = document.getElementById('goToSlideButton');
 
-    // permet de rédiger les commentaires pour l'enseignant 
+    // permet de lire les commentaires coté Master 
     const remarksNow = document.getElementById('remarksNow');
     const remarksNext = document.getElementById('remarksNext');
 
-    // Fonction pour obtenir les remarques du slide souhaité
+    // Fonction pour obtenir les remarques du slide en cours
     async function getRemarksForSlide(slideIndex) {
         try {
             var remarksDict = await window.pywebview.api.get_remarks();  // Accède à la variable exposée depuis Python
             var remarks = remarksDict[slideIndex];  // Remarques pour le slide souhaité
+            console.log(remarksDict);
+            console.log(remarks);
             return remarks;
         } catch (error) {
             console.error("Erreur lors de la récupération des remarques :", error);
@@ -29,16 +31,38 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Obtient les remarques et met à jour le contenu HTML
+    /**
+     * Met à jour les remarques affichées pour la diapositive actuelle et la suivante.
+     * 
+     * Cette fonction est asynchrone car elle attend les données de l'API pywebview.
+     * Elle récupère les remarques pour la diapositive actuelle et la suivante,
+     * puis met à jour le contenu HTML des éléments `remarksNow` et `remarksNext`.
+     * Chaque ligne de remarques est présentée comme un paragraphe distinct,
+     * précédé d'un symbole "-".
+     * 
+     * @async
+     * @function
+     * @returns {Promise<void>} Rien
+     */
     async function updateRemarks() {
         var currentSlideIndex = await window.pywebview.api.getCurrentIndex();
         var nextSlideIndex = currentSlideIndex + 1;
 
+        console.log(currentSlideIndex);
+        console.log(nextSlideIndex);
+
         var remarksNowContent = await getRemarksForSlide(currentSlideIndex);
         var remarksNextContent = await getRemarksForSlide(nextSlideIndex);
 
-        remarksNow.innerHTML = '<p>' + remarksNowContent + '</p>';
-        remarksNext.innerHTML = '<p>' + remarksNextContent + '</p>';
+        // Crée un paragraphe pour chaque élément du tableau pour les remarques actuelles
+        // et ajoute un symbole "-" devant chaque ligne
+        var remarksNowParagraphs = remarksNowContent.map(line => `<p>- ${line}</p>`).join('');
+        remarksNow.innerHTML = remarksNowParagraphs;
+
+        // Crée un paragraphe pour chaque élément du tableau pour les remarques suivantes
+        // et ajoute un symbole "-" devant chaque ligne
+        var remarksNextParagraphs = remarksNextContent.map(line => `<p>- ${line}</p>`).join('');
+        remarksNext.innerHTML = remarksNextParagraphs;
     }
 
     // Fonction pour simuler une pression de touche
@@ -47,7 +71,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             await window.pywebview.api.simulateKeyPress(keyCode);
             // Après simulation, mettre à jour le contenu des iframes
             await Promise.all([call_getCurrentSlideContent(), call_getNextSlideContent()]);
-             
+
             // Appelle la fonction d'actualisation des remarques
             updateRemarks();
         } catch (error) {
