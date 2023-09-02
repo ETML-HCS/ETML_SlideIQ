@@ -62,8 +62,8 @@ def create_windows(path_presentation, path_control):
 
         if number_of_monitors > 1:
             # Si plus d'un écran est détecté
-            window_1 = webview.create_window('Slides', url=path_presentation, fullscreen=True)
-            window_2 = webview.create_window('Master', url=path_control, x=monitors[0].width, y=0, fullscreen=True)
+            window_1 = webview.create_window('Slides', url=path_presentation,x=monitors[1].x ,y=monitors[1].y , fullscreen=True)
+            window_2 = webview.create_window('Master', url=path_control, x=monitors[0].x ,y=monitors[0].y , fullscreen=True)
             return window_1, window_2
 
     except ImportError:
