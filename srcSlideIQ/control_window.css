@@ -40,11 +40,15 @@ body {
 .remarks{
     height: 160px;
 }
+
 #remarksNow, #remarksNext 
 { 
     position: fixed;
-    font-size: 13px;
+    font-size: 16px;
     font-family: 'Times New Roman', Times, serif;
+    overflow-y: scroll; 
+    height: 110px;
+    width: 40%;
 }
 
 iframe {
